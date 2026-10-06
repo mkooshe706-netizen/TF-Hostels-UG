@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hostel Management & Executive Directory Portal — resident registration, login, and executive contacts." />
+  <title>Hostel Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       TOP BAR
+  ============================================================ -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">
+        <svg class="brand-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="8" fill="#1B4332"/>
+          <rect x="7" y="14" width="22" height="16" rx="2" fill="#fff" fill-opacity=".15"/>
+          <rect x="7" y="14" width="22" height="3" rx="1" fill="#52B788"/>
+          <rect x="14" y="21" width="4" height="5" rx="1" fill="#fff" fill-opacity=".9"/>
+          <rect x="18" y="21" width="4" height="5" rx="1" fill="#fff" fill-opacity=".4"/>
+          <path d="M10 14L18 8L26 14" stroke="#52B788" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <span class="brand-name">ResidentHub</span>
+          <span class="brand-sub">Hostel Management Portal</span>
+        </div>
+      </div>
+      <div class="topbar-stats">
+        <span class="stat-label">Total Residents</span>
+        <span class="stat-count" id="residentCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT — view switcher
+  ============================================================ -->
+  <main class="main-wrap">
+
+    <!-- ── TAB NAV ────────────────────────────────────────────── -->
+    <nav class="tab-nav" id="tabNav">
+      <button class="tab-btn active" data-tab="directory">Executive Directory</button>
+      <button class="tab-btn" data-tab="register">Register</button>
+      <button class="tab-btn" data-tab="login">Login</button>
+    </nav>
+
+    <!-- ============================================================
+         VIEW 1 — EXECUTIVE DIRECTORY
+    ============================================================ -->
+    <section class="view active" id="view-directory">
+      <div class="section-header">
+        <h2>Executive Members</h2>
+        <p>Reach your hostel leadership directly — call or email from any card.</p>
+      </div>
+      <div class="exec-grid" id="execGrid">
+        <!-- Cards injected by app.js from EXECUTIVES array -->
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VIEW 2 — REGISTER
+    ============================================================ -->
+    <section class="view" id="view-register">
+      <div class="form-card">
+        <h2>Create Your Account</h2>
+        <p class="form-sub">Register to access your resident profile and executive contacts.</p>
+        <form id="registerForm" novalidate>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="reg-name">Full Name</label>
+              <input type="text" id="reg-name" placeholder="Mubarak Issah" autocomplete="name" required />
+              <span class="field-err" id="err-reg-name"></span>
+            </div>
+            <div class="field">
+              <label for="reg-id">Student ID</label>
+              <input type="text" id="reg-id" placeholder="10XXXXXXX" autocomplete="off" required />
+              <span class="field-err" id="err-reg-id"></span>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="reg-room">Room / Block Number</label>
+              <input type="text" id="reg-room" placeholder="B-204" required />
+              <span class="field-err" id="err-reg-room"></span>
+            </div>
+            <div class="field">
+              <label for="reg-phone">Phone Number</label>
+              <input type="tel" id="reg-phone" placeholder="024 XXX XXXX" autocomplete="tel" required />
+              <span class="field-err" id="err-reg-phone"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="reg-emergency">Emergency Contact</label>
+            <input type="tel" id="reg-emergency" placeholder="Emergency contact number" required />
+            <span class="field-err" id="err-reg-emergency"></span>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="reg-password">Password</label>
+              <input type="password" id="reg-password" placeholder="Min. 8 characters" required />
+              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+              <span class="strength-label" id="strengthLabel"></span>
+              <span class="field-err" id="err-reg-password"></span>
+            </div>
+            <div class="field">
+              <label for="reg-confirm">Confirm Password</label>
+              <input type="password" id="reg-confirm" placeholder="Repeat password" required />
+              <span class="field-err" id="err-reg-confirm"></span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+          <p class="form-switch">Already registered? <button type="button" class="link-btn" data-goto="login">Sign in</button></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VIEW 3 — LOGIN
+    ============================================================ -->
+    <section class="view" id="view-login">
+      <div class="form-card">
+        <h2>Sign In</h2>
+        <p class="form-sub">Use your Student ID and password to access your resident profile.</p>
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="login-id">Student ID</label>
+            <input type="text" id="login-id" placeholder="10XXXXXXX" autocomplete="username" required />
+            <span class="field-err" id="err-login-id"></span>
+          </div>
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password" required />
+            <span class="field-err" id="err-login-password"></span>
+          </div>
+          <span class="field-err form-level-err" id="err-login-global"></span>
+          <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          <p class="form-switch">New here? <button type="button" class="link-btn" data-goto="register">Create an account</button></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VIEW 4 — STUDENT PROFILE (post-login)
+    ============================================================ -->
+    <section class="view" id="view-profile">
+      <div class="profile-wrap">
+
+        <!-- Profile card -->
+        <div class="profile-card">
+          <div class="profile-avatar" id="profileAvatar"></div>
+          <div class="profile-info">
+            <h2 id="profileName">—</h2>
+            <div class="profile-meta">
+              <span id="profileId"></span>
+              <span id="profileRoom"></span>
+              <span id="profilePhone"></span>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-logout" id="logoutBtn">Sign out</button>
+        </div>
+
+        <!-- Quick-action exec contacts -->
+        <div class="section-header" style="margin-top:2.5rem">
+          <h3>Contact an Executive</h3>
+          <p>Tap to call or message any hostel executive directly.</p>
+        </div>
+        <div class="exec-quick-grid" id="execQuickGrid">
+          <!-- Injected by app.js -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       TOAST NOTIFICATION
+  ============================================================ -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
